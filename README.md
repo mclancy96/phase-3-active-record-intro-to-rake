@@ -69,17 +69,17 @@ end
 Now, in your terminal in the directory of this project, type:
 
 ```console
-$ rake hello
+bin/rake hello
 hello from Rake!
 ```
 
 You should see the text above outputted to your terminal.
 
-### Describing our Tasks With `rake -T`
+### Describing our Tasks With `bin/rake -T`
 
-Rake comes with a handy command, `rake -T`, that we can run in the terminal to
+Rake comes with a handy command, `bin/rake -T`, that we can run in the terminal to
 view a list of available Rake tasks and their descriptions. In order for
-`rake -T` to work though, we need to give our Rake tasks descriptions. Let's
+`bin/rake -T` to work though, we need to give our Rake tasks descriptions. Let's
 give our `hello` task a description now:
 
 ```rb
@@ -89,10 +89,10 @@ task :hello do
 end
 ```
 
-Now, if we run `rake -T` in the terminal, we should see the following:
+Now, if we run `bin/rake -T` in the terminal, we should see the following:
 
 ```console
-$ rake -T
+bin/rake -T
 rake hello       # outputs hello to the terminal
 ```
 
@@ -134,20 +134,20 @@ end
 Now, to use either of our Rake tasks, we use the following syntax:
 
 ```console
-$ rake greeting:hello
+bin/rake greeting:hello
 hello from Rake!
 
-$ rake greeting:hola
+bin/rake greeting:hola
 hola desde Rake!
 ```
 
-## `bundle exec rake`
+## `bin/rake`
 
 One common issue with Rake is the following: you run a Rake task, like
-`rake greeting:hello`, and see an output like this:
+`bin/rake greeting:hello`, and see an output like this:
 
 ```console
-$ rake greeting:hello
+bin/rake greeting:hello
 rake aborted!
 Gem::LoadError: You have already activated rake 10.4.2,
 but your Gemfile requires rake 10.4.0.
@@ -156,10 +156,10 @@ Prepending `bundle exec` to your command may solve this.
 
 This is a very common thing to see as a Ruby developer, and luckily, there's an
 easy fix if you do happen to see this error message. Just follow the
-instructions, and "prepend" `bundle exec` to your rake command:
+instructions, and "prepend" `bin/` to your rake command:
 
 ```console
-$ bundle exec rake greeting:hello
+bin/rake greeting:hello
 hello from Rake!
 ```
 
@@ -167,9 +167,9 @@ While it is a bit of extra typing, we can tell you from experience, it's
 worth the effort once you start encountering this issue. If you're
 curious as to why, check out this article:
 
-- [But I Don't Want to `bundle exec`](https://thoughtbot.com/blog/but-i-dont-want-to-bundle-exec)
+- [But I Don&#39;t Want to `bin/`](https://thoughtbot.com/blog/but-i-dont-want-to-bundle-exec)
 
-We suggest you get in the habit of using `bundle exec` with your Rake commands.
+We suggest you get in the habit of using `bin/` with your Rake commands.
 
 ## Common Rake Tasks
 
@@ -178,7 +178,7 @@ to use some common Rake tasks that handle certain database-related jobs. We'll
 be using a gem to set up some of these tasks for us, but it's still helpful to
 get an understanding of the syntax of Rake tasks so you can create your own.
 
-### `rake db:migrate`
+### `bin/rake db:migrate`
 
 One common pattern you'll soon become familiar with is the pattern of writing
 code that creates database tables and then "migrating" that code using a rake
@@ -206,11 +206,11 @@ namespace :db do
 end
 ```
 
-But, if we run `rake db:migrate` now, we're going to hit an error:
+But, if we run `bin/rake db:migrate` now, we're going to hit an error:
 
 ```txt
 rake aborted!
-Don't know how to build task 'environment' (See the list of available tasks with `rake --tasks`)
+Don't know how to build task 'environment' (See the list of available tasks with `bin/rake --tasks`)
 ```
 
 #### Task Dependency
@@ -237,9 +237,9 @@ task :environment do
 end
 ```
 
-Now, running `bundle exec rake db:migrate` should create our students table.
+Now, running `bin/rake db:migrate` should create our students table.
 
-### `rake db:seed`
+### `bin/rake db:seed`
 
 Another task you will become familiar with is the `seed` task. This task is
 responsible for "seeding" our database with some placeholder data.
@@ -274,8 +274,8 @@ namespace :db do
 end
 ```
 
-Now, if we run `bundle exec rake db:seed` in our terminal (provided we have
-already run `rake db:migrate` to create the database table), we will insert five
+Now, if we run `bin/rake db:seed` in our terminal (provided we have
+already run `bin/rake db:migrate` to create the database table), we will insert five
 records into the database.
 
 If only there was some way to interact with our class and database without
@@ -283,7 +283,7 @@ having to run our entire program...
 
 Well, we can build a Rake task that will load up a Pry console for us.
 
-### `rake console`
+### `bin/rake console`
 
 We'll define a task that starts up the Pry console. We'll make this task
 dependent on our `environment` task so that the `Student` class and the database
@@ -297,11 +297,11 @@ task console: :environment do
 end
 ```
 
-Now, provided we ran `rake db:migrate` and `rake db:seed`, we can drop into our
+Now, provided we ran `bin/rake db:migrate` and `bin/rake db:seed`, we can drop into our
 console with the following:
 
 ```console
-$ bundle exec rake console
+bin/rake console
 ```
 
 This should bring you into a Pry session in your terminal:
